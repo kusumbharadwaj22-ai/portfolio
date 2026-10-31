@@ -29,20 +29,28 @@
   <!-- LINK PREVIEW -->
   <!-- These are what Telegram, WhatsApp, LinkedIn and Slack read when someone
        pastes your URL. Without them the share shows a bare link instead of a
-       card with a title and a description.
+       card with a title, a description and the image below.
 
-       Once the site is live you may also want:
-         <meta property="og:url"   content="https://your-site.netlify.app/">
-         <meta property="og:image" content="https://your-site.netlify.app/preview.png">
-       og:image needs a real 1200x630 PNG sitting in this folder. Without it
-       the card is text-only, which is perfectly fine. -->
+       The URLs must be absolute: other servers read these tags, so a relative
+       path would mean nothing to them. They point at the GitHub Pages
+       deployment, which is where this site is published. If it ever moves,
+       these lines move with it. -->
+  <link rel="canonical" href="https://kusumbharadwaj22-ai.github.io/portfolio/">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Kusum">
+  <meta property="og:url" content="https://kusumbharadwaj22-ai.github.io/portfolio/">
   <meta property="og:title" content="Kusum — MCA Student | Backend Development">
   <meta property="og:description" content="Portfolio of Kusum, an MCA student in Chandigarh focused on backend development with Java and Spring Boot.">
-  <meta name="twitter:card" content="summary">
+  <meta property="og:image" content="https://kusumbharadwaj22-ai.github.io/portfolio/preview.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Kusum — MCA student, backend development with Java and Spring Boot">
+  <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Kusum — MCA Student | Backend Development">
   <meta name="twitter:description" content="Portfolio of Kusum, an MCA student in Chandigarh focused on backend development with Java and Spring Boot.">
+  <meta name="twitter:image" content="https://kusumbharadwaj22-ai.github.io/portfolio/preview.png">
+  <meta name="twitter:image:alt" content="Kusum — MCA student, backend development with Java and Spring Boot">
 
   <!-- OPTIONAL: a nicer display font. Uncomment both lines for a more
        editorial look. The site works fine without them, but this makes the

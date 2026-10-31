@@ -30,6 +30,7 @@ portfolio/
 │   └── style.css   All styling, in 16 numbered sections
 ├── js/
 │   └── script.js   All behaviour, in 9 numbered sections
+├── preview.png     1200x630 share card, read by link unfurlers only
 └── README.md       This file
 ```
 
@@ -63,7 +64,7 @@ The functions that do something non-obvious carry a short JSDoc comment explaini
 
 **Why tags instead of skill progress bars?** A progress bar implies a percentage that nobody can justify. A list of things I would happily be asked about is more honest and harder to challenge.
 
-**Why no favicon or images?** Every visual is a CSS gradient, a border, or a Unicode character. There are no image files, so nothing can go missing when the folder is moved or submitted.
+**Why is there only one image?** Every visual on the page is a CSS gradient, a border, or a Unicode character. The single file, `preview.png` (1200×630), exists only for link previews — WhatsApp, LinkedIn and Slack read it when the URL is shared. Nothing on the page loads it, so the site is unaffected if it is deleted; the share card just loses its picture.
 
 ## Accessibility
 
