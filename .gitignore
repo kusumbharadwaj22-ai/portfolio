@@ -1,0 +1,8 @@
+﻿# Rehearsal notes for the demo — deliberately kept out of the public repo.
+DEMO-SCRIPT.md
+
+# Operating-system and Office noise
+Thumbs.db
+desktop.ini
+.DS_Store
+~$*.docx

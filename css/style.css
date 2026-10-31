@@ -1,0 +1,1127 @@
+/* ==========================================================================
+   style.css — the portfolio's only stylesheet
+   --------------------------------------------------------------------------
+   Read top to bottom. It runs from the most general ideas (colour, type,
+   spacing) down to individual sections.
+
+   THE RULE THAT KEEPS THIS MANAGEABLE:
+   nothing in this file contains a raw colour value except the :root block
+   below. Every rule says var(--terracotta) or var(--ink). That is why dark
+   mode is fifteen lines instead of a rewrite.
+
+   NAMING: block__element--modifier. .track is a block, .track__thumb is
+   a part of it, .is-active is a temporary state. Verbose, but you can always
+   tell which rule styles which element.
+   ========================================================================== */
+
+
+/* ==========================================================================
+   1. VARIABLES
+   ========================================================================== */
+:root {
+  /* --- Colour: a warm, paper-like palette --- */
+  --paper: #fbf6ed;         /* page background */
+  --paper-tint: #f3ead9;    /* alternating section background */
+  --card: #fffdf8;          /* raised surfaces */
+  --ink: #241a11;           /* main text */
+  --ink-soft: #6d5c4a;      /* secondary text */
+  --rule: #e2d4bf;          /* hairlines and borders */
+  --terracotta: #bf5730;    /* the one accent */
+  --terracotta-dark: #98401f;
+  --olive: #74855a;
+  --danger: #a83c26;
+  --focus: #2f6fb5;
+
+  /* --- Type --- */
+  --font-display: 'Fraunces', 'Iowan Old Style', 'Palatino Linotype', Palatino, Georgia, serif;
+  --font-body: 'Segoe UI', system-ui, -apple-system, Roboto, Helvetica, Arial, sans-serif;
+  --font-mono: 'Cascadia Mono', Consolas, 'SF Mono', Menlo, monospace;
+
+  /* --- Layout --- */
+  --wrap: 1120px;
+  --gutter: clamp(1.1rem, 4vw, 2.5rem);
+  --section-space: clamp(3.5rem, 9vw, 7rem);
+  --radius: 4px;            /* small on purpose: editorial layouts are squarer */
+
+  /* --- Effects --- */
+  --shadow: 0 10px 30px rgba(36, 26, 17, 0.09);
+  --ease: 200ms ease;
+}
+
+/* --- Dark theme: only the tokens change, no component is restyled --- */
+[data-theme='dark'] {
+  --paper: #17120d;
+  --paper-tint: #1f1811;
+  --card: #221a13;
+  --ink: #f6eee1;
+  --ink-soft: #b3a08b;
+  --rule: #382c21;
+  --terracotta: #e08256;
+  --terracotta-dark: #f0a077;
+  --olive: #a7b884;
+  --danger: #ef8f74;
+  --focus: #8ab6f0;
+  --shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+
+/* ==========================================================================
+   2. RESET
+   ========================================================================== */
+*,
+*::before,
+*::after {
+  /* border-box means width already includes padding and borders. Without
+     this, adding padding to a 100%-wide element overflows its container. */
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  /* When you click a nav link to #work, this many pixels of space are left
+     above the heading so the fixed header does not cover it. */
+  scroll-padding-top: 90px;
+  -webkit-text-size-adjust: 100%;
+}
+
+img,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+button,
+input,
+textarea {
+  font: inherit;
+  color: inherit;
+}
+
+button {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+ul,
+ol {
+  list-style: none;
+}
+
+
+/* ==========================================================================
+   3. BASE
+   ========================================================================== */
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  transition: background-color var(--ease), color var(--ease);
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+h2 {
+  font-size: clamp(1.75rem, 3.6vw, 2.7rem);
+  margin-bottom: 1rem;
+}
+
+h3 {
+  font-size: 1.15rem;
+  margin-bottom: 0.4rem;
+}
+
+p {
+  max-width: 64ch;   /* long lines are tiring to read */
+}
+
+p + p {
+  margin-top: 1rem;
+}
+
+a {
+  color: var(--terracotta);
+  text-decoration: none;
+  transition: color var(--ease);
+}
+
+a:hover {
+  color: var(--terracotta-dark);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+:focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 3px;
+  border-radius: var(--radius);
+}
+
+/* An em inside a heading renders in the accent colour and italic, which is
+   the single most editorial-looking trick in this stylesheet. */
+h1 em,
+h2 em {
+  font-style: italic;
+  color: var(--terracotta);
+}
+
+
+/* ==========================================================================
+   4. LAYOUT
+   ========================================================================== */
+.wrap {
+  width: 100%;
+  max-width: var(--wrap);
+  margin-inline: auto;          /* logical-property shorthand for left+right */
+  padding-inline: var(--gutter);
+}
+
+.section {
+  padding-block: var(--section-space);
+  border-top: 1px solid var(--rule);
+}
+
+.section--tint {
+  background: var(--paper-tint);
+}
+
+/* The editorial two-column shape used by every section after the hero:
+   a narrow sticky label on the left, the content on the right. */
+.section__grid {
+  display: grid;
+  grid-template-columns: 170px 1fr;
+  gap: clamp(1.5rem, 5vw, 4rem);
+  align-items: start;
+}
+
+.section__label {
+  position: sticky;
+  top: 100px;                   /* clears the fixed header */
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  padding-top: 0.6rem;
+}
+
+.section__label span {
+  display: block;
+  font-size: 1.6rem;
+  letter-spacing: 0;
+  color: var(--terracotta);
+  font-family: var(--font-display);
+  margin-bottom: 0.2rem;
+}
+
+.lead {
+  font-size: 1.15rem;
+  color: var(--ink-soft);
+  margin-bottom: 1.4rem;
+  max-width: 58ch;
+}
+
+.kicker {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+
+/* ==========================================================================
+   5. HEADER AND NAVIGATION
+   ========================================================================== */
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: var(--paper);
+  border-bottom: 1px solid var(--rule);
+}
+
+.header__inner {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  min-height: 68px;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.05rem;
+  color: var(--ink);
+}
+
+.brand:hover {
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.brand__mark {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: var(--terracotta);
+  color: #fff;
+  font-size: 0.8rem;
+  letter-spacing: 0.02em;
+}
+
+.nav {
+  margin-left: auto;   /* pushes the nav and everything after it to the right */
+}
+
+.nav__list {
+  display: flex;
+  gap: 1.6rem;
+}
+
+.nav__link {
+  position: relative;
+  font-size: 0.9rem;
+  color: var(--ink-soft);
+  padding-block: 0.3rem;
+}
+
+.nav__link:hover {
+  color: var(--ink);
+  text-decoration: none;
+}
+
+/* The underline marking the section you are currently reading.
+   script.js adds .is-active as you scroll (this is the "scroll spy"). */
+.nav__link.is-active {
+  color: var(--ink);
+}
+
+.nav__link.is-active::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 2px;
+  background: var(--terracotta);
+}
+
+.theme-toggle {
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border: 1px solid var(--rule);
+  border-radius: 50%;
+  transition: border-color var(--ease), transform var(--ease);
+}
+
+.theme-toggle:hover {
+  border-color: var(--terracotta);
+  transform: translateY(-2px);
+}
+
+/* The hamburger. Hidden by default; shown in the mobile media query. */
+.nav-toggle {
+  display: none;
+}
+
+.nav-toggle__bars {
+  display: grid;
+  gap: 4px;
+  width: 20px;
+}
+
+.nav-toggle__bars span {
+  display: block;
+  height: 2px;
+  background: var(--ink);
+  border-radius: 2px;
+}
+
+
+/* ==========================================================================
+   6. BUTTONS
+   ========================================================================== */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.8rem 1.5rem;
+  font-size: 0.88rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  transition: background-color var(--ease), color var(--ease),
+              transform var(--ease), border-color var(--ease);
+}
+
+.btn:hover {
+  text-decoration: none;
+  transform: translateY(-2px);
+}
+
+.btn--solid {
+  background: var(--terracotta);
+  color: #fff;
+}
+
+.btn--solid:hover {
+  background: var(--terracotta-dark);
+  color: #fff;
+}
+
+.btn--line {
+  border-color: var(--rule);
+  color: var(--ink);
+}
+
+.btn--line:hover {
+  border-color: var(--terracotta);
+  color: var(--terracotta);
+}
+
+
+/* ==========================================================================
+   7. HERO
+   ========================================================================== */
+.hero {
+  padding-block: clamp(3rem, 10vw, 7rem) clamp(3rem, 8vw, 6rem);
+  background:
+    radial-gradient(900px 380px at 90% -10%, rgba(191, 87, 48, 0.10), transparent 65%),
+    var(--paper);
+}
+
+/* The oversized headline. clamp(minimum, preferred, maximum) lets the text
+   scale smoothly with the viewport without any media query at all:
+   at least 2.5rem, ideally 9% of the viewport width, never more than 6.4rem. */
+.hero__title {
+  font-size: clamp(2.5rem, 9vw, 6.4rem);
+  line-height: 0.98;
+  letter-spacing: -0.035em;
+  margin-block: 1rem 1.2rem;
+  max-width: 16ch;
+}
+
+.hero__role {
+  font-family: var(--font-display);
+  font-size: clamp(1.2rem, 3vw, 1.9rem);
+  color: var(--ink-soft);
+  margin-bottom: 1.4rem;
+}
+
+/* The blinking cursor after the typed text. A CSS keyframe animation, so it
+   costs no JavaScript at all. */
+.caret {
+  display: inline-block;
+  width: 2px;
+  height: 1em;
+  margin-left: 3px;
+  background: var(--terracotta);
+  vertical-align: -0.1em;
+  animation: blink 900ms steps(1) infinite;
+}
+
+@keyframes blink {
+  0%, 49%  { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+
+.hero__lead {
+  font-size: 1.08rem;
+  color: var(--ink-soft);
+  max-width: 56ch;
+}
+
+.hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 2rem;
+}
+
+.hero__facts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2.5rem;
+  margin-top: 2.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--rule);
+}
+
+.hero__facts li {
+  font-size: 0.95rem;
+}
+
+.hero__facts span {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  margin-bottom: 0.15rem;
+}
+
+
+/* ==========================================================================
+   8. ABOUT
+   ========================================================================== */
+.about__grid {
+  display: grid;
+  grid-template-columns: 190px 1fr;
+  gap: 2.5rem;
+  align-items: start;
+  margin-top: 2rem;
+}
+
+/* A "photograph" made entirely of CSS: a gradient panel with initials in it.
+   No image file, so nothing to go missing when you submit the folder. */
+.portrait {
+  display: grid;
+  place-items: center;
+  aspect-ratio: 4 / 5;
+  border-radius: var(--radius);
+  background: linear-gradient(155deg, var(--terracotta), var(--olive));
+  color: #fff;
+  font-family: var(--font-display);
+  font-size: 3rem;
+  letter-spacing: 0.04em;
+  box-shadow: var(--shadow);
+}
+
+.facts li {
+  display: grid;
+  grid-template-columns: 110px 1fr;
+  gap: 0.5rem;
+  padding-block: 0.5rem;
+  border-bottom: 1px dashed var(--rule);
+  font-size: 0.92rem;
+}
+
+.facts strong {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  font-weight: 400;
+  padding-top: 0.25rem;
+}
+
+
+/* ==========================================================================
+   9. SKILLS
+   ========================================================================== */
+.skills {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 2.5rem;
+  margin-top: 2rem;
+}
+
+.skill-group h3 {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  font-weight: 400;
+  padding-bottom: 0.6rem;
+  border-bottom: 1px solid var(--rule);
+  margin-bottom: 0.9rem;
+}
+
+/* Pills. flex-wrap lets them break onto new lines instead of overflowing. */
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+}
+
+.tags li {
+  padding: 0.3rem 0.75rem;
+  border: 1px solid var(--rule);
+  border-radius: 999px;
+  background: var(--card);
+  font-size: 0.85rem;
+}
+
+.tags--sm li {
+  font-size: 0.75rem;
+  padding: 0.2rem 0.6rem;
+}
+
+
+/* ==========================================================================
+   10. LEARNING CARDS — the filter bar and the card grid
+   ========================================================================== */
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--rule);
+}
+
+.filter {
+  padding: 0.45rem 1rem;
+  border: 1px solid var(--rule);
+  border-radius: 999px;
+  font-size: 0.83rem;
+  color: var(--ink-soft);
+  transition: all var(--ease);
+}
+
+.filter:hover {
+  border-color: var(--terracotta);
+  color: var(--terracotta);
+}
+
+.filter.is-active {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: var(--paper);
+}
+
+.track-count {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  padding-block: 1rem;
+}
+
+.tracks {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1.5rem;
+}
+
+/* The status pill on each learning card. --solid for things that are going
+   well, --progress for things still being worked out. No modifier means
+   "fundamentals" and keeps the neutral default colour. */
+.status {
+  align-self: flex-start;   /* stops the pill stretching to fill the column */
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 0.2rem 0.6rem;
+  border: 1px solid var(--rule);
+  border-radius: 999px;
+  color: var(--ink-soft);
+}
+
+.status--solid {
+  border-color: var(--olive);
+  color: var(--olive);
+}
+
+.status--progress {
+  border-color: var(--terracotta);
+  color: var(--terracotta);
+}
+
+/* Applied by the filter code to cards that do not match. */
+.track.is-hidden {
+  display: none;
+}
+
+.track {
+  display: flex;
+  flex-direction: column;
+  background: var(--card);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius);
+  overflow: hidden;
+  transition: transform var(--ease), box-shadow var(--ease);
+}
+
+.track:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow);
+}
+
+.track__thumb {
+  display: grid;
+  place-items: center;
+  aspect-ratio: 16 / 10;
+  font-family: var(--font-display);
+  font-size: 2.2rem;
+  color: rgba(255, 255, 255, 0.92);
+  letter-spacing: 0.04em;
+}
+
+.track__thumb--a { background: linear-gradient(140deg, #c96a44, #8d3f22); }
+.track__thumb--b { background: linear-gradient(140deg, #7f9060, #4d5b38); }
+.track__thumb--c { background: linear-gradient(140deg, #5a4a3c, #2b211a); }
+.track__thumb--d { background: linear-gradient(140deg, #d3a06a, #a4703c); }
+
+.track__body {
+  padding: 1.1rem 1.2rem 1.3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  flex-grow: 1;
+}
+
+.track__body h3 {
+  margin: 0;
+}
+
+.track__body p {
+  font-size: 0.9rem;
+  color: var(--ink-soft);
+  flex-grow: 1;
+}
+
+.track__links {
+  display: flex;
+  gap: 1rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  flex-grow: 0;
+}
+
+
+/* ==========================================================================
+   11. JOURNEY — the timeline
+   ========================================================================== */
+.timeline {
+  position: relative;
+  margin-top: 2rem;
+  padding-left: 1.6rem;
+  border-left: 2px solid var(--rule);
+}
+
+.timeline__item {
+  position: relative;
+  padding-bottom: 2rem;
+}
+
+.timeline__item:last-child {
+  padding-bottom: 0;
+}
+
+/* The dot on the line. Positioned absolutely so it sits exactly on the
+   border, whatever height the item happens to be. */
+.timeline__item::before {
+  content: '';
+  position: absolute;
+  left: -1.6rem;
+  top: 0.55rem;
+  width: 11px;
+  height: 11px;
+  margin-left: -5.5px;   /* half the width, to centre it on the line */
+  border-radius: 50%;
+  background: var(--terracotta);
+  box-shadow: 0 0 0 4px var(--paper);
+}
+
+.timeline__year {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.14em;
+  color: var(--terracotta);
+}
+
+.timeline__content p {
+  font-size: 0.92rem;
+  color: var(--ink-soft);
+}
+
+
+/* ==========================================================================
+   12. CONTACT AND FORM
+   ========================================================================== */
+.contact {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  gap: clamp(1.5rem, 5vw, 3rem);
+  align-items: start;
+  margin-top: 1.5rem;
+}
+
+.form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.1rem;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+/* Makes one field span both columns of the two-column form grid. */
+.field--full {
+  grid-column: 1 / -1;
+}
+
+/* The submit button sits in a .field, which is a flex column. Without this
+   the button would be stretched to the full width of the column. */
+.field--full .btn {
+  align-self: flex-start;
+}
+
+.field label {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+.field input,
+.field textarea {
+  width: 100%;
+  padding: 0.7rem 0.85rem;
+  background: var(--card);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius);
+  transition: border-color var(--ease);
+}
+
+.field input:focus,
+.field textarea:focus {
+  border-color: var(--terracotta);
+}
+
+.field textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+/* The error text. min-height reserves the space so that adding an error
+   message does not shove the rest of the form downwards. */
+.field__error {
+  font-size: 0.78rem;
+  color: var(--danger);
+  min-height: 1.2em;
+}
+
+.field.has-error input,
+.field.has-error textarea {
+  border-color: var(--danger);
+  background: color-mix(in srgb, var(--danger) 6%, var(--card));
+}
+
+.form-status {
+  font-size: 0.88rem;
+  margin-top: 0.6rem;
+  max-width: none;
+}
+
+.form-status.is-error { color: var(--danger); font-weight: 600; }
+.form-status.is-success { color: var(--olive); font-weight: 600; }
+
+.contact__aside {
+  padding: 1.5rem;
+  background: var(--card);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius);
+}
+
+.contact__aside h3 {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  font-weight: 400;
+  margin-bottom: 1rem;
+}
+
+.contact__links li {
+  padding-block: 0.4rem;
+  border-bottom: 1px dashed var(--rule);
+  font-size: 0.9rem;
+  /* A long URL should wrap onto the next line rather than push the panel
+     wider than its grid column. */
+  overflow-wrap: anywhere;
+}
+
+.contact__note {
+  margin-top: 1rem;
+  font-size: 0.82rem;
+  color: var(--ink-soft);
+  font-style: italic;
+}
+
+
+/* ==========================================================================
+   13. FOOTER
+   ========================================================================== */
+.footer {
+  border-top: 1px solid var(--rule);
+  background: var(--paper-tint);
+  padding-block: 2rem;
+}
+
+.footer__inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  font-size: 0.85rem;
+  color: var(--ink-soft);
+}
+
+.footer__inner p {
+  max-width: none;
+}
+
+
+/* ==========================================================================
+   14. BACK-TO-TOP BUTTON
+   ========================================================================== */
+.to-top {
+  position: fixed;
+  right: 1.2rem;
+  bottom: 1.2rem;
+  width: 46px;
+  height: 46px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--ink);
+  color: var(--paper);
+  font-size: 1.1rem;
+  box-shadow: var(--shadow);
+  z-index: 60;
+  /* Hidden by sliding down out of view. script.js only toggles .is-visible,
+     it never sets any geometry itself. */
+  transform: translateY(140%);
+  opacity: 0;
+  transition: transform 250ms ease, opacity 250ms ease;
+  pointer-events: none;
+}
+
+.to-top.is-visible {
+  transform: translateY(0);
+  opacity: 1;
+  pointer-events: auto;
+}
+
+
+/* ==========================================================================
+   15. SCROLL REVEAL AND UTILITIES
+   --------------------------------------------------------------------------
+   The hidden start state is scoped to .js-reveal, a class that script.js
+   puts on <html> only when it is about to animate. If JavaScript is broken
+   or disabled, the class never appears and every element simply shows
+   normally. Content is never trapped behind a script that did not run.
+   ========================================================================== */
+.js-reveal [data-reveal] {
+  opacity: 0;
+  transform: translateY(26px);
+  transition: opacity 600ms ease, transform 600ms ease;
+}
+
+.js-reveal [data-reveal].is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* THE "SKIP TO CONTENT" LINK
+   It is the very first focusable element on the page, so a keyboard user
+   can jump straight past the header without tabbing through the whole nav.
+
+   The base rule moves it off-screen with left:-9999px rather than hiding it
+   with display:none. display:none would take it out of the tab order
+   completely, which would defeat the point - you cannot tab to something the
+   browser thinks does not exist. */
+.skip-link {
+  position: absolute;
+  top: 0;
+  left: -9999px;
+  z-index: 200;
+  padding: 0.6rem 1rem;
+  background: var(--terracotta);
+  color: #fff;
+  border-radius: 0 0 var(--radius) 0;
+  text-decoration: none;
+}
+
+/* Tab to it and it slides into the top-left corner. */
+.skip-link:focus {
+  left: 0;
+  color: #fff;
+}
+
+
+/* ==========================================================================
+   16. MEDIA QUERIES
+   --------------------------------------------------------------------------
+   Most of this site is already fluid because the grids use auto-fit and the
+   headings use clamp(). These queries only handle arrangements that really
+   do need a different structure.
+   ========================================================================== */
+
+/* ---- Tablet and below: stack the two-column section grid -------------- */
+@media (max-width: 900px) {
+  .section__grid,
+  .contact {
+    grid-template-columns: 1fr;
+  }
+
+  .section__label {
+    position: static;
+    padding-top: 0;
+  }
+
+  .section__label span {
+    display: inline;
+    font-size: 1rem;
+    margin-right: 0.6rem;
+  }
+
+  /* Put the nav behind a hamburger. */
+  .header__inner {
+    justify-content: flex-start;
+  }
+
+  .brand {
+    margin-right: auto;
+  }
+
+  .nav-toggle {
+    display: block;
+    order: 2;
+  }
+
+  .theme-toggle {
+    order: 3;
+  }
+
+  .nav {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    margin: 0;
+    background: var(--paper);
+    border-bottom: 1px solid var(--rule);
+    box-shadow: var(--shadow);
+    /* max-height 0 hides it. Animating max-height (rather than using
+       display:none) is what lets the panel slide open smoothly. */
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 280ms ease;
+  }
+
+  /* body.nav-open is toggled by script.js. */
+  body.nav-open .nav {
+    max-height: 420px;
+  }
+
+  .nav__list {
+    flex-direction: column;
+    gap: 0;
+    padding: 0.5rem var(--gutter) 1rem;
+  }
+
+  .nav__link {
+    display: block;
+    padding-block: 0.8rem;
+    border-bottom: 1px solid var(--rule);
+    font-size: 1rem;
+  }
+
+  .nav__link.is-active::after {
+    display: none;
+  }
+
+  .nav__link.is-active {
+    color: var(--terracotta);
+  }
+}
+
+/* ---- Phones ----------------------------------------------------------- */
+@media (max-width: 620px) {
+  .brand__name {
+    display: none;   /* no room next to two icon buttons */
+  }
+
+  .about__grid,
+  .form {
+    grid-template-columns: 1fr;
+  }
+
+  .portrait {
+    max-width: 160px;
+  }
+
+  .hero__facts {
+    gap: 1.5rem;
+  }
+
+  .footer__inner {
+    justify-content: flex-start;
+  }
+}
+
+/* ---- Respect a user's motion preference -------------------------------- */
+/* Some people get motion sickness from animated pages. This turns every
+   animation off for them. The only place in the file that uses !important,
+   because it has to beat every individual transition declared above. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ---- Printing ---------------------------------------------------------- */
+@media print {
+  .header,
+  .to-top,
+  .filters,
+  .form,
+  .theme-toggle {
+    display: none;
+  }
+}

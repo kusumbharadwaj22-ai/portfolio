@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<!-- ==========================================================================
+     index.html — the whole portfolio is this one page.
+     --------------------------------------------------------------------------
+     STILL TO FILL IN  (search for the marker  EDIT  )
+       contact     - your email, GitHub and LinkedIn
+
+     ALREADY DONE  (verified facts)
+       name, city, degree, graduation year, backend focus, skills, hero
+     ========================================================================== -->
+<html lang="en" data-theme="light">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kusum — MCA Student | Backend Development</title>
+  <meta name="description"
+        content="Portfolio of Kusum, an MCA student in Chandigarh focused on backend development with Java and Spring Boot.">
+
+  <!-- FAVICON -->
+  <!-- An inline SVG, so there is no extra file to upload or lose. The %23 is
+       an escaped "#" - a literal one would end the data URI early. Browsers
+       too old to understand this just show a blank tab icon, which is what
+       the site had before anyway. -->
+  <link rel="icon"
+        href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%23bf5730'/%3E%3Ctext x='50' y='73' font-size='64' font-family='Georgia,serif' text-anchor='middle' fill='%23ffffff'%3EK%3C/text%3E%3C/svg%3E">
+  <meta name="theme-color" content="#bf5730">
+
+  <!-- LINK PREVIEW -->
+  <!-- These are what Telegram, WhatsApp, LinkedIn and Slack read when someone
+       pastes your URL. Without them the share shows a bare link instead of a
+       card with a title and a description.
+
+       Once the site is live you may also want:
+         <meta property="og:url"   content="https://your-site.netlify.app/">
+         <meta property="og:image" content="https://your-site.netlify.app/preview.png">
+       og:image needs a real 1200x630 PNG sitting in this folder. Without it
+       the card is text-only, which is perfectly fine. -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Kusum">
+  <meta property="og:title" content="Kusum — MCA Student | Backend Development">
+  <meta property="og:description" content="Portfolio of Kusum, an MCA student in Chandigarh focused on backend development with Java and Spring Boot.">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Kusum — MCA Student | Backend Development">
+  <meta name="twitter:description" content="Portfolio of Kusum, an MCA student in Chandigarh focused on backend development with Java and Spring Boot.">
+
+  <!-- OPTIONAL: a nicer display font. Uncomment both lines for a more
+       editorial look. The site works fine without them, but this makes the
+       headings noticeably better. Requires an internet connection. -->
+  <!--
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,700&display=swap" rel="stylesheet">
+  -->
+
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+  <!-- Keyboard users get to jump past the header on the first press of Tab. -->
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <!-- ======================================================================
+       HEADER — fixed bar with the brand, the section links and the theme
+       toggle. On narrow screens the links collapse behind a hamburger.
+       ====================================================================== -->
+  <header class="header" id="top">
+    <div class="wrap header__inner">
+
+      <a class="brand" href="#top">
+        <span class="brand__mark" aria-hidden="true">K</span>
+        <span class="brand__name">Kusum</span>
+      </a>
+
+      <button class="nav-toggle" id="navToggle" type="button"
+              aria-expanded="false" aria-controls="nav">
+        <span class="nav-toggle__bars" aria-hidden="true">
+          <span></span><span></span><span></span>
+        </span>
+        <span class="sr-only">Open navigation</span>
+      </button>
+
+      <nav class="nav" id="nav" aria-label="Sections">
+        <ul class="nav__list">
+          <li><a class="nav__link" href="#about">About</a></li>
+          <li><a class="nav__link" href="#skills">Skills</a></li>
+          <li><a class="nav__link" href="#learning">Learning</a></li>
+          <li><a class="nav__link" href="#journey">Journey</a></li>
+          <li><a class="nav__link" href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+
+      <button class="theme-toggle" id="themeToggle" type="button" aria-label="Switch theme">
+        <span aria-hidden="true">🌙</span>
+      </button>
+
+    </div>
+  </header>
+
+  <main id="main">
+
+    <!-- ==================================================================
+         HERO
+         ================================================================== -->
+    <section class="hero">
+      <div class="wrap">
+
+        <p class="kicker">Portfolio &mdash; <span class="year">2025</span></p>
+
+        <h1 class="hero__title">
+          Hello, I&rsquo;m <em>Kusum</em>.
+        </h1>
+
+        <!-- The animated line. Note it says "learning to build", not
+             "I build" — an honest claim is a stronger one, and it is
+             harder to catch out in an interview. -->
+        <p class="hero__role">
+          <span class="sr-only">I am learning to build backend services with Java and Spring Boot.</span>
+          <span aria-hidden="true">I am learning to build <span id="typed">backend services.</span><span class="caret"></span></span>
+        </p>
+
+        <p class="hero__lead">
+          A first-year MCA student in Chandigarh, building on a BCA. Most of my
+          time right now goes into Java and Spring Boot, working towards
+          server-side code that stays readable as a project grows.
+        </p>
+
+        <div class="hero__actions">
+          <a class="btn btn--solid" href="#learning">See where I am</a>
+          <a class="btn btn--line" href="#contact">Get in touch</a>
+        </div>
+
+        <ul class="hero__facts">
+          <li><span>Based in</span> Chandigarh</li>
+          <li><span>Studying</span> MCA, first year</li>
+          <li><span>Graduating</span> 2028</li>
+          <li><span>Open to</span> Internships, 2027</li>
+        </ul>
+
+      </div>
+    </section>
+
+    <!-- ==================================================================
+         ABOUT
+         ================================================================== -->
+    <section class="section" id="about">
+      <div class="wrap section__grid">
+
+        <p class="section__label"><span>01</span> About</p>
+
+        <div class="section__body">
+          <h2>It started with Java.</h2>
+
+          <p class="lead">
+            In the third year of my BCA a teacher introduced it, and I knew
+            almost immediately that this was what I wanted to learn properly.
+            The MCA entrance process then took over 2025 and it went on hold.
+            Now that I am on the MCA, I am finally getting to it &mdash;
+            starting with object-oriented programming and moving on to
+            Spring Boot.
+          </p>
+
+          <p>
+            Chandigarh has been home for all of it &mdash; the BCA at Panjab
+            University, and now the MCA at Chandigarh University in Mohali.
+          </p>
+          <p>
+            I would rather understand one thing properly than collect a long
+            list of things I have only watched a tutorial about, so I am going
+            deep on Java and Spring Boot before adding anything else to the pile.
+          </p>
+
+          <div class="about__grid">
+            <div class="portrait" aria-hidden="true">
+              <span>K</span>
+            </div>
+
+            <ul class="facts">
+              <li><strong>Focus</strong> Backend development</li>
+              <li><strong>Studying</strong> MCA, first year</li>
+              <li><strong>College</strong> Chandigarh University</li>
+              <li><strong>Graduating</strong> 2028</li>
+              <li><strong>Currently</strong> Learning Spring Boot</li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ==================================================================
+         SKILLS — grouped tags rather than progress bars. Bars imply a
+         precise percentage that nobody can actually justify.
+         ================================================================== -->
+    <section class="section section--tint" id="skills">
+      <div class="wrap section__grid">
+
+        <p class="section__label"><span>02</span> Skills</p>
+
+        <div class="section__body">
+          <h2>What I actually use.</h2>
+          <p class="lead">
+            No percentages, and nothing listed that I could not explain if
+            you asked me about it.
+          </p>
+
+          <div class="skills">
+
+            <div class="skill-group" data-reveal>
+              <h3>Languages</h3>
+              <ul class="tags">
+                <li>Java</li>
+                <li>Python</li>
+                <li>SQL</li>
+                <li>JavaScript</li>
+                <li>HTML5</li>
+                <li>CSS3</li>
+              </ul>
+            </div>
+
+            <div class="skill-group" data-reveal>
+              <h3>Backend</h3>
+              <ul class="tags">
+                <li>Spring Boot</li>
+              </ul>
+            </div>
+
+            <div class="skill-group" data-reveal>
+              <h3>Tools</h3>
+              <ul class="tags">
+                <li>IntelliJ IDEA</li>
+                <li>Git &amp; GitHub</li>
+                <li>VS Code</li>
+              </ul>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ==================================================================
+         03 — CURRENTLY LEARNING
+
+         This section replaced a project grid, because there are no finished
+         projects yet. It is a snapshot of what is actually being worked on.
+
+         When you build your first real project, swap these cards back for
+         project cards - the filter, the grid and the styling all still work.
+         ================================================================== -->
+    <section class="section" id="learning">
+      <div class="wrap section__grid">
+
+        <p class="section__label"><span>03</span> Learning</p>
+
+        <div class="section__body">
+          <h2>Where I am right now.</h2>
+          <p class="lead">
+            I am in the first year of my MCA and I do not have finished
+            projects to show yet. Rather than pad this page out with things I
+            did not build, here is an honest snapshot of what I am working
+            through and how far I have got.
+          </p>
+
+          <div class="filters" role="group" aria-label="Filter learning tracks">
+            <button class="filter is-active" type="button" data-filter="all" aria-pressed="true">All</button>
+            <button class="filter" type="button" data-filter="java" aria-pressed="false">Java</button>
+            <button class="filter" type="button" data-filter="backend" aria-pressed="false">Backend</button>
+            <button class="filter" type="button" data-filter="web" aria-pressed="false">Web</button>
+          </div>
+
+          <p class="track-count" id="trackCount" aria-live="polite"></p>
+
+          <div class="tracks">
+
+            <article class="track" data-category="java" data-reveal>
+              <div class="track__thumb track__thumb--a" aria-hidden="true">JV</div>
+              <div class="track__body">
+                <h3>Java</h3>
+                <span class="status status--solid">Ongoing</span>
+                <p>The language I am going deepest on, because it is what the
+                   backend work I want to do is built with. So far that means
+                   object-oriented programming &mdash; classes, inheritance
+                   and interfaces. Everything on the server is organised
+                   around objects, so this is the part worth getting solid
+                   before anything else.</p>
+              </div>
+            </article>
+
+            <article class="track" data-category="backend" data-reveal>
+              <div class="track__thumb track__thumb--b" aria-hidden="true">SB</div>
+              <div class="track__body">
+                <h3>Spring Boot</h3>
+                <span class="status status--progress">Just started</span>
+                <p>The framework I am learning now. I am still working
+                   through tutorials and do not have a project of my own yet.
+                   Being able to say that plainly is worth more than a card
+                   full of words I could not back up.</p>
+              </div>
+            </article>
+
+            <article class="track" data-category="backend" data-reveal>
+              <div class="track__thumb track__thumb--c" aria-hidden="true">DB</div>
+              <div class="track__body">
+                <h3>SQL &amp; databases</h3>
+                <span class="status">Fundamentals</span>
+                <p>Writing queries by hand, and designing tables &mdash;
+                   working out which columns a table needs and which field
+                   identifies a row. Enough to see why the shape of a schema
+                   matters before any code gets written against it.</p>
+              </div>
+            </article>
+
+            <article class="track" data-category="web" data-reveal>
+              <div class="track__thumb track__thumb--d" aria-hidden="true">WF</div>
+              <div class="track__body">
+                <h3>Web fundamentals &mdash; this site</h3>
+                <span class="status status--solid">Built</span>
+                <p>This page. HTML, CSS and vanilla JavaScript &mdash; no
+                   frameworks and no build step. Responsive down to phone
+                   width, keyboard accessible, light and dark themes, and
+                   commented so that I can explain every line of it.</p>
+              </div>
+            </article>
+
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ==================================================================
+         JOURNEY — education as a vertical timeline.
+
+         To add work experience or a certification later, copy one
+         <li class="timeline__item"> block and put it first.
+         ================================================================== -->
+    <section class="section section--tint" id="journey">
+      <div class="wrap section__grid">
+
+        <p class="section__label"><span>04</span> Journey</p>
+
+        <div class="section__body">
+          <h2>How I got here.</h2>
+
+          <ol class="timeline">
+
+            <li class="timeline__item" data-reveal>
+              <span class="timeline__year">2026 &ndash; 2028</span>
+              <div class="timeline__content">
+                <h3>MCA &mdash; Master of Computer Applications</h3>
+                <p>Chandigarh University, Mohali, Punjab. First year,
+                   graduating in 2028. Focus on backend development: Java
+                   and Spring Boot.</p>
+              </div>
+            </li>
+
+            <li class="timeline__item" data-reveal>
+              <span class="timeline__year">2025 &ndash; 2026</span>
+              <div class="timeline__content">
+                <h3>MCA entrance &mdash; applying and preparing</h3>
+                <p>Entrance exams and applications. Everything else, Java
+                   included, went on hold for the year.</p>
+              </div>
+            </li>
+
+            <li class="timeline__item" data-reveal>
+              <span class="timeline__year">2022 &ndash; 2025</span>
+              <div class="timeline__content">
+                <h3>BCA &mdash; Bachelor of Computer Applications</h3>
+                <p>Panjab University, Chandigarh. Where the programming
+                   fundamentals came from &mdash; data structures, databases
+                   and the first real projects.</p>
+              </div>
+            </li>
+
+          </ol>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ==================================================================
+         CONTACT
+         ================================================================== -->
+    <section class="section" id="contact">
+      <div class="wrap section__grid">
+
+        <p class="section__label"><span>05</span> Contact</p>
+
+        <div class="section__body">
+          <h2>Say hello.</h2>
+          <p class="lead">
+            Best reached by email. I am looking for a backend internship for
+            2027 and I reply to everything.
+          </p>
+
+          <div class="contact">
+
+            <form class="form" id="contactForm" novalidate>
+              <!-- novalidate turns OFF the browser's own popup validation,
+                   so our JavaScript messages are the only ones the user
+                   ever sees. Without it, both would appear at once. -->
+
+              <div class="field">
+                <label for="name">Your name</label>
+                <input type="text" id="name" name="name" autocomplete="name" placeholder="Ada Lovelace">
+                <span class="field__error" aria-live="polite"></span>
+              </div>
+
+              <div class="field">
+                <label for="email">Email address</label>
+                <input type="email" id="email" name="email" autocomplete="email" placeholder="ada@example.com">
+                <span class="field__error" aria-live="polite"></span>
+              </div>
+
+              <div class="field field--full">
+                <label for="subject">Subject</label>
+                <input type="text" id="subject" name="subject" placeholder="Internship application">
+                <span class="field__error" aria-live="polite"></span>
+              </div>
+
+              <div class="field field--full">
+                <label for="message">Message</label>
+                <textarea id="message" name="message" placeholder="Tell me what you are working on..."></textarea>
+                <span class="field__error" aria-live="polite"></span>
+              </div>
+
+              <div class="field field--full">
+                <button class="btn btn--solid" type="submit">Send message</button>
+                <p class="form-status" id="formStatus" role="status"></p>
+              </div>
+            </form>
+
+            <aside class="contact__aside">
+              <h3>Elsewhere</h3>
+
+              <ul class="contact__links">
+                <li><a href="mailto:26MCA20248@CUCHD.in">26MCA20248@CUCHD.in</a></li>
+                <li>
+                  <a href="https://github.com/kusumbharadwaj22-ai"
+                     target="_blank" rel="noopener">github.com/kusumbharadwaj22-ai</a>
+                </li>
+                <li>
+                  <a href="https://www.linkedin.com/in/kusum12345678"
+                     target="_blank" rel="noopener">linkedin.com/in/kusum12345678</a>
+                </li>
+              </ul>
+
+              <p class="contact__note">
+                This form is a demo &mdash; there is no server behind it, so
+                nothing is actually sent.
+              </p>
+            </aside>
+
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ======================================================================
+       FOOTER
+       ====================================================================== -->
+  <footer class="footer">
+    <div class="wrap footer__inner">
+      <p>&copy; <span class="year">2025</span> Kusum. Built with HTML, CSS and a little JavaScript.</p>
+      <a href="#top">Back to top &uarr;</a>
+    </div>
+  </footer>
+
+  <!-- Appears once you scroll past the hero. -->
+  <button class="to-top" id="toTop" type="button" aria-label="Back to top">&uarr;</button>
+
+  <!-- One script. It is loaded at the end of the body so that every element
+       above it already exists when the code runs. -->
+  <script src="js/script.js"></script>
+
+</body>
+</html>
